@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export $DIST=$1
+export DIST=$1
 if [[ $DIST = "ubuntu16.04" ]]; then
     # Install Qt 5.9 for Ubuntu 16.04
     add-apt-repository --yes ppa:beineri/opt-qt591-trusty
