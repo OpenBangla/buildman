@@ -14,4 +14,4 @@ docker exec build apt-get update
 docker exec build apt-get -y install git
 docker exec build git clone https://github.com/OpenBangla/buildman.git /ci
 docker exec build chmod +x /ci/makedeb.sh
-docker exec build /ci/makedeb.sh
+docker exec build /ci/makedeb.sh $DIST
