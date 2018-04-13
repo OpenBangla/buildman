@@ -5,7 +5,7 @@ if [[ $DIST = "ubuntu16.04" ]]; then
     apt-get -y install software-properties-common
     add-apt-repository ppa:beineri/opt-qt591-xenial
     apt-get update -qq
-    apt-get -y install qt59base qt59declarative
+    apt-get -y install mesa-common-dev libglu1-mesa-dev qt59base qt59declarative
     source /opt/qt59/bin/qt59-env.sh
 elif [[ $DIST = "ubuntu17.10" ]]; then
     apt-get update -qq
