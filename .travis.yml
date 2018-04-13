@@ -1,13 +1,14 @@
 sudo: required 
 language: cpp
-services:
-  - docker
+matrix:
+  include:
+    - os: linux
+      env: DIST=ubuntu16.04
+      services: docker
+    - os: linux
+      env: DIST=ubuntu17.10
+      services: docker
 before_install:
-  - docker pull ubuntu:17.10
-  - docker run -itd --name build ubuntu:17.10
-  - docker exec build apt-get update
-  - docker exec build apt-get -y install git build-essential cmake libibus-1.0-dev qt5-default qtdeclarative5-dev ninja-build
-  - docker exec build git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git /repo
+  - chmod +x script.sh
 script:
-  - docker exec build cmake -H/repo -B/build -GNinja -DCPACK_GENERATOR=DEB
-  - docker exec build ninja package -C build
+  - bash ./script.sh
