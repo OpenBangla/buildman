@@ -6,7 +6,7 @@ if [[ $DIST = "ubuntu16.04" ]]; then
     add-apt-repository ppa:beineri/opt-qt59-xenial
     apt-get update -qq
     apt-get -y install qt59base qt59declarative
-    #source /opt/qt59/bin/qt59-env.sh
+    source /opt/qt59/bin/qt59-env.sh
 elif [[ $DIST = "ubuntu17.10" ]]; then
     apt-get update -qq
     apt-get -y install qt5-default qtdeclarative5-dev
