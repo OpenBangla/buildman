@@ -9,6 +9,6 @@ before_install:
   - docker exec build apt-get -y install git build-essential cmake libibus-1.0-dev qt5-default qtdeclarative5-dev ninja-build
   - docker exec build git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git /repo
 script:
-  - docker exec build cmake -H/repo -B/build
-  - docker exec build cmake --build /build
-  - docker exec build ls
+  - docker exec build cmake -H/repo -B/build -GNinja -DCPACK_GENERATOR=DEB
+  - docker exec build cd build
+  - docker exec build ninja package
