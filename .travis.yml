@@ -1,0 +1,11 @@
+sudo: required 
+language: cpp
+services:
+  - docker
+before_install:
+  - docker pull ubuntu:rolling
+  - docker run -itd --name build ubuntu
+  - docker exec build git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git /repo
+script:
+  - docker exec build cmake -H/repo -B/build
+  - docker exec build cmake --build /build
