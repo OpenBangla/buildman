@@ -10,6 +10,5 @@ matrix:
       services: docker
 before_install:
   - chmod +x script.sh
-  #- chmod +x makedeb.sh
 script:
   - bash ./script.sh
