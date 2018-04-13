@@ -5,8 +5,8 @@ services:
 before_install:
   - docker pull ubuntu:rolling
   - docker run -itd --name build ubuntu:rolling
-  - docker exec build apt update
-  - docker exec build apt -y install build-essential cmake libibus-1.0-dev qt5-default qtdeclarative5-dev ninja-build
+  - docker exec build apt-get update
+  - docker exec build apt-get -y install git build-essential cmake libibus-1.0-dev qt5-default qtdeclarative5-dev ninja-build
   - docker exec build git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git /repo
 script:
   - docker exec build cmake -H/repo -B/build
