@@ -18,8 +18,8 @@ elif [[ $DIST = "ubuntu16.04" ]]; then
     makeDeb
 elif [[ $DIST = "fedora27" ]]; then
     docker pull fedora:27
-    docker run -itd --name build fedora:27 bash
-    docker exec build dnf install git
+    docker run -itd --name build fedora:27 /bin/bash
+    docker exec build dnf -y install git
     docker exec build git clone https://github.com/OpenBangla/buildman.git /ci
     docker exec build chmod +x /ci/makerpm.sh
     docker exec build /ci/makerpm.sh $DIST
