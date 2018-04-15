@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 export DIST=$1
+export RELPACK=$2
 if [[ $DIST = "ubuntu16.04" ]]; then
     # Install Qt 5.9 for Ubuntu 16.04
     apt-get -y install software-properties-common
@@ -15,3 +16,4 @@ apt-get -y install build-essential cmake libibus-1.0-dev ninja-build
 git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git /repo
 cmake -H/repo -B/build -GNinja -DCPACK_GENERATOR=DEB
 ninja package -C build
+curl --upload-file /build/${RELPACK}${DIST}.deb "https://transfer.sh/OBK/${RELPACK}${DIST}.deb"

@@ -1,11 +1,14 @@
 #! /bin/bash
 
+# Always change this on every release
+export RELPACK="OpenBangla-Keyboard_1.2.0-"
+
 makeDeb() {
     docker exec build apt-get update
     docker exec build apt-get -y install git
     docker exec build git clone https://github.com/OpenBangla/buildman.git /ci
     docker exec build chmod +x /ci/makedeb.sh
-    docker exec build /ci/makedeb.sh $DIST
+    docker exec build /ci/makedeb.sh $DIST $RELPACK
 }
 
 if [[ $DIST = "ubuntu17.10" ]]; then
@@ -22,5 +25,5 @@ elif [[ $DIST = "fedora27" ]]; then
     docker exec build dnf -y install git
     docker exec build git clone https://github.com/OpenBangla/buildman.git /ci
     docker exec build chmod +x /ci/makerpm.sh
-    docker exec build /ci/makerpm.sh $DIST
+    docker exec build /ci/makerpm.sh $DIST $RELPACK
 fi
