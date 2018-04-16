@@ -5,4 +5,8 @@ dnf install -y @buildsys-build cmake qt5-qtdeclarative-devel ibus-devel ninja-bu
 git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git /repo
 cmake -H/repo -B/build -GNinja -DCPACK_GENERATOR=RPM
 ninja package -C build
-curl --upload-file /build/${RELPACK}${DIST}.rpm "https://transfer.sh/OBK/${RELPACK}${DIST}.rpm"
+echo "${RELPACK}${DIST}.rpm"
+echo "Run ls"
+ls
+echo "Ok ls"
+curl --upload-file build/${RELPACK}${DIST}.rpm "https://transfer.sh/${RELPACK}${DIST}.rpm"
