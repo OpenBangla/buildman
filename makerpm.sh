@@ -8,5 +8,5 @@ ninja package -C build
 echo "${RELPACK}${DIST}.rpm"
 source /ci/transfer.sh
 #curl --upload-file build/${RELPACK}${DIST}.rpm "https://transfer.sh/${RELPACK}${DIST}.rpm"
-transfer "/build/${RELPACK}${DIST}.rpm"
-file "/build/${RELPACK}${DIST}.rpm"
+transfer "build/${RELPACK}${DIST}.rpm"
+file "build/${RELPACK}${DIST}.rpm"
