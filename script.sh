@@ -19,6 +19,10 @@ elif [[ $DIST = "ubuntu16.04" ]]; then
     docker pull ubuntu:16.04
     docker run -itd --name build ubuntu:16.04
     makeDeb
+elif [[ $DIST = "ubuntu18.04" ]]; then
+    docker pull ubuntu:18.04
+    docker run -itd --name build ubuntu:18.04
+    makeDeb
 elif [[ $DIST = "fedora27" ]]; then
     docker pull fedora:27
     docker run -itd --name build fedora:27 /bin/bash
