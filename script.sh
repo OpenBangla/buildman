@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Always change this on every release
-export RELPACK="OpenBangla-Keyboard_1.3.0-"
+export RELPACK="OpenBangla-Keyboard_1.4.0-"
 
 makeDeb() {
     docker exec build apt-get -qq update
