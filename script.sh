@@ -35,8 +35,7 @@ elif [[ $DIST = "archlinux" ]]; then
     docker run -itd --name build archlinux/base
     docker exec build pacman -Syyu --noconfirm --needed
     docker exec build pacman -S --noconfirm --needed base git
-    # TODO: replace URL before PR
-    docker exec build git clone https://github.com/smsrkr/obkb-buildman.git /ci
+    docker exec build git clone https://github.com/OpenBangla/buildman.git /ci
     docker exec build chmod +x /ci/makearch.sh
     docker exec build /ci/makearch.sh $DIST $RELPACK $RELVER
 fi
