@@ -1,7 +1,7 @@
 #! /bin/bash
-
 # Always change this on every release
-export RELPACK="OpenBangla-Keyboard_1.4.0-"
+export RELVER=$(cat "`dirname $0`/version.txt")
+export RELPACK="OpenBangla-Keyboard_$RELVER-"
 
 makeDeb() {
     docker exec build apt-get -qq update
@@ -30,4 +30,13 @@ elif [[ $DIST = "fedora27" ]]; then
     docker exec build git clone https://github.com/OpenBangla/buildman.git /ci
     docker exec build chmod +x /ci/makerpm.sh
     docker exec build /ci/makerpm.sh $DIST $RELPACK
+elif [[ $DIST = "archlinux" ]]; then
+    docker pull archlinux/base
+    docker run -itd --name build archlinux/base
+    docker exec build pacman -Syyu --noconfirm --needed
+    docker exec build pacman -S --noconfirm --needed base git
+    # TODO: replace URL before PR
+    docker exec build git clone https://github.com/smsrkr/obkb-buildman.git /ci
+    docker exec build chmod +x /ci/makearch.sh
+    docker exec build /ci/makearch.sh $DIST $RELPACK $RELVER
 fi

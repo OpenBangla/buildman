@@ -14,6 +14,9 @@ matrix:
     - os: linux
       env: DIST=fedora27
       services: docker
+    - os: linux
+      env: DIST=archlinux
+      services: docker
 before_install:
   - chmod +x script.sh
 script:
