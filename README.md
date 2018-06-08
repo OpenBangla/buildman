@@ -2,3 +2,5 @@
 Build OpenBangla Keyboard packages for various distribution.
 
 [![Build Status](https://travis-ci.org/OpenBangla/buildman.svg?branch=master)](https://travis-ci.org/OpenBangla/buildman)
+
+To deploy the build artifacts, the commit message would need `deploy+` to be present.
