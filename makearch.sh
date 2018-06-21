@@ -11,6 +11,8 @@ echo -e "pkgver=\"$RELVER\"\n$(cat /ci/PKGBUILD.stub)" > PKGBUILD
 chown nobody:nobody /build
 sudo -u nobody makepkg -fd --skipinteg
 mv openbangla-keyboard-*.pkg.tar.xz ${RELPACK}${DIST}.pkg.tar.xz
+echo "ls!"
+ls
 if [ $DEPLOY == 1 ]; then
     echo "Deploying artifacts to transfer.sh"
     curl --upload-file ${RELPACK}${DIST}.pkg.tar.xz https://transfer.sh/${RELPACK}${DIST}.pkg.tar.xz
