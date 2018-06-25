@@ -14,11 +14,7 @@ makeDeb() {
     docker exec build /ci/makedeb.sh $DIST $RELPACK $DEPLOY
 }
 
-if [[ $DIST = "ubuntu17.10" ]]; then
-    docker pull ubuntu:17.10
-    docker run -itd --name build ubuntu:17.10
-    makeDeb
-elif [[ $DIST = "ubuntu16.04" ]]; then
+if [[ $DIST = "ubuntu16.04" ]]; then
     docker pull ubuntu:16.04
     docker run -itd --name build ubuntu:16.04
     makeDeb

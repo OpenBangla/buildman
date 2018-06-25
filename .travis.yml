@@ -6,9 +6,6 @@ matrix:
       env: DIST=ubuntu16.04
       services: docker
     - os: linux
-      env: DIST=ubuntu17.10
-      services: docker
-    - os: linux
       env: DIST=ubuntu18.04
       services: docker
     - os: linux
