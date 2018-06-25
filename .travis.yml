@@ -9,7 +9,7 @@ matrix:
       env: DIST=ubuntu18.04
       services: docker
     - os: linux
-      env: DIST=fedora27
+      env: DIST=fedora28
       services: docker
     - os: linux
       env: DIST=archlinux
