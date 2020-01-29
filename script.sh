@@ -6,8 +6,8 @@ export RELPACK="OpenBangla-Keyboard_$RELVER-"
 string='deploy+'
 export DEPLOY=$(git log -1 --pretty=%B | grep "$string" -q  && echo 1 || echo 0)
 
-export REPO=${TRAVIS_PULL_REQUEST_SLUG:-$TRAVIS_REPO_SLUG}
-export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+REPO=${TRAVIS_PULL_REQUEST_SLUG:-$TRAVIS_REPO_SLUG}
+BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
 
 docker pull $DIST
 docker run -itd --name build $DIST /bin/bash

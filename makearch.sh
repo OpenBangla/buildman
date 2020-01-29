@@ -3,7 +3,7 @@ export DIST=$1
 export RELPACK=$2
 export RELVER=$3
 export DEPLOY=$4
-pacman -S --noconfirm --needed base-devel cmake libibus qt5-base curl
+pacman -S --noconfirm --needed base-devel cmake libibus qt5-base rust curl
 mkdir /build
 cd /build
 echo -e "pkgver=\"$RELVER\"\n$(cat /ci/PKGBUILD.stub)" > PKGBUILD

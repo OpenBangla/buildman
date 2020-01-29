@@ -6,14 +6,16 @@ arch=('x86_64')
 url="http://openbangla.github.io"
 license=('GPL3')
 depends=('ibus' 'qt5-base')
-source=("$pkgname-src.tar.gz::https://github.com/OpenBangla/OpenBangla-Keyboard/archive/$pkgver.tar.gz")
 build() {
-    cd "$srcdir/OpenBangla-Keyboard-$pkgver"
+    mkdir "$srcdir/repo"
+    cd "$srcdir/repo"
+    git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git .
+    git submodule update --init --recursive
     mkdir build && cd build
     cmake ..
     make
 }
 package() {
-    cd "$srcdir/OpenBangla-Keyboard-$pkgver"
+    cd "$srcdir/repo"
     make -C build DESTDIR="$pkgdir" install
 }
