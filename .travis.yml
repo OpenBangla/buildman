@@ -3,16 +3,19 @@ language: cpp
 matrix:
   include:
     - os: linux
-      env: DIST=ubuntu16.04
+      env: DIST=ubuntu:18.04
       services: docker
     - os: linux
-      env: DIST=ubuntu18.04
+      env: DIST=ubuntu:19.04
       services: docker
     - os: linux
-      env: DIST=fedora28
+      env: DIST=fedora:30
       services: docker
     - os: linux
-      env: DIST=archlinux
+      env: DIST=fedora:31
+      services: docker
+    - os: linux
+      env: DIST=archlinux:latest
       services: docker
 script:
   - bash ./script.sh
