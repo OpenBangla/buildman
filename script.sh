@@ -2,7 +2,6 @@
 # Always change this on every release
 export RELVER=$(cat "`dirname $0`/version.txt")
 export RELPACK="OpenBangla-Keyboard_$RELVER-"
-# Check if we want to deploy build artifacts
 if [[ $DIST =~ ^ubuntu ]]; then
     apt-get -qq update
     apt-get -y install git
