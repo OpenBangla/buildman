@@ -10,7 +10,6 @@ makeDeb() {
     docker exec build apt-get -qq update
     docker exec build apt-get -y install git
     docker exec build git clone https://github.com/OpenBangla/buildman.git /ci
-    docker exec build chmod +x /ci/makedeb.sh
     docker exec build /ci/makedeb.sh $DIST $RELPACK $DEPLOY
 }
 
@@ -27,7 +26,6 @@ elif [[ $DIST = "fedora28" ]]; then
     docker run -itd --name build fedora:28 /bin/bash
     docker exec build dnf -y install git
     docker exec build git clone https://github.com/OpenBangla/buildman.git /ci
-    docker exec build chmod +x /ci/makerpm.sh
     docker exec build /ci/makerpm.sh $DIST $RELPACK $DEPLOY
 elif [[ $DIST = "archlinux" ]]; then
     docker pull archlinux/base
@@ -35,6 +33,5 @@ elif [[ $DIST = "archlinux" ]]; then
     docker exec build pacman -Syyu --noconfirm --needed
     docker exec build pacman -S --noconfirm --needed base git
     docker exec build git clone https://github.com/OpenBangla/buildman.git /ci
-    docker exec build chmod +x /ci/makearch.sh
     docker exec build /ci/makearch.sh $DIST $RELPACK $RELVER $DEPLOY
 fi

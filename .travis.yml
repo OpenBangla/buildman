@@ -14,7 +14,5 @@ matrix:
     - os: linux
       env: DIST=archlinux
       services: docker
-before_install:
-  - chmod +x script.sh
 script:
   - bash ./script.sh
