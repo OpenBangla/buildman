@@ -7,8 +7,8 @@ url="http://openbangla.github.io"
 license=('GPL3')
 depends=('ibus' 'qt5-base')
 build() {
-    mkdir "$srcdir/repo"
-    cd "$srcdir/repo"
+    mkdir "$srcdir/src"
+    cd "$srcdir/src"
     git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git .
     git submodule update --init --recursive
     mkdir build && cd build
@@ -16,6 +16,6 @@ build() {
     make
 }
 package() {
-    cd "$srcdir/repo"
+    cd "$srcdir/src"
     make -C build DESTDIR="$pkgdir" install
 }

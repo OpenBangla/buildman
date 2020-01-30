@@ -1,0 +1,21 @@
+name: buildman
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        container: [ "ubuntu:18.04", "ubuntu:19.04", "fedora:30", "fedora:31", "archlinux:latest" ]
+    runs-on: [ "ubuntu-latest" ]
+    container:
+      image: ${{ matrix.container }}
+      env:
+        DIST: ${{ matrix.container }}
+        DEPLOY: ${{ contains(github.event.head_commit.message, 'deploy+') }}
+    steps:
+      - name: checkout-buildman
+        uses: actions/checkout@v2
+      - name: run-buildman
+        shell: bash
+        run: ./script.sh
