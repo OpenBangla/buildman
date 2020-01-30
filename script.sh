@@ -15,4 +15,5 @@ elif [[ $DIST =~ ^archlinux ]]; then
     pacman -S --noconfirm --needed base git
     BUILDSCRIPT=makearch
 fi
+DIST=${DIST/:/}
 ./$BUILDSCRIPT.sh $DIST $RELPACK $RELVER $DEPLOY
