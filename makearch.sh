@@ -8,8 +8,9 @@ mkdir /build
 cd /build
 echo -e "pkgver=\"$RELVER\"\n$(cat /ci/PKGBUILD.stub)" > PKGBUILD
 # makepkg does not run as root
-chown nobody:nobody /build
-sudo -u nobody makepkg -fd --skipinteg
+useradd -m builder
+chown builder:builder /build
+sudo -u builder makepkg -fd --skipinteg
 mv openbangla-keyboard-*.pkg.tar.xz ${RELPACK}${DIST}.pkg.tar.xz
 if [ $DEPLOY == 1 ]; then
     echo "Deploying artifacts to transfer.sh"
