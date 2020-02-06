@@ -9,6 +9,6 @@ git -C /src submodule update --init --recursive
 cmake -H/src -B/build -GNinja -DCPACK_GENERATOR=DEB
 ninja package -C /build
 if [ $DEPLOY == true ]; then
-    echo "Deploying artifacts to transfer.sh"
-    curl --upload-file /build/${RELPACK}${DIST}.deb https://transfer.sh/
+    mkdir $GITHUB_WORKSPACE/artifact
+    mv /build/*.deb $GITHUB_WORKSPACE/artifact/
 fi
