@@ -6,22 +6,31 @@ RELEASE_VERSION=$(cat "`dirname $0`/version.txt")
 jfrog bt config --user "$BINTRAY_USER" --key "$BINTRAY_APIKEY" --licenses 'GPL-3.0'
 cd artifact
 
+gpgImport () {
+    echo -e "-----BEGIN PGP PRIVATE KEY BLOCK-----\n\n${BINTRAY_GPG_DATA}\n-----END PGP PRIVATE KEY BLOCK-----" \
+    | gpg --import 2> /dev/null
+}
 pubDeb () {
     for PKG in $(ls *${REPO}*); do
-	# read distro code from filename
+        # read distro code from filename
         CODENAME=$(echo $PKG | grep -oP '[^-]+.deb$' | cut -d. -f1)
         jfrog bt upload --publish --override --deb "${CODENAME}/main/amd64" "$PKG" "$VERSION_PATH"
     done
 }
 pubRpm () {
+    gpgImport
+    pacman -Syyuu --noconfirm --needed rpm
+    gpg --export -a "${BINTRAY_GPG_ID}" > /pubkey.asc
+    rpm --import /pubkey.asc
+    echo "%_signature gpg" >> "$HOME/.rpmmacros"
+    echo "%_gpg_name ${BINTRAY_GPG_ID}" >> "$HOME/.rpmmacros"
     for PKG in $(ls *${REPO}*); do
+        rpm --addsign "$PKG"
         jfrog bt upload --publish --override "$PKG" "$VERSION_PATH"
     done
 }
 pubArch () {
-    # d'oh
-    echo -e "-----BEGIN PGP PRIVATE KEY BLOCK-----\n\n${BINTRAY_GPG_DATA}\n-----END PGP PRIVATE KEY BLOCK-----" \
-    | gpg --import 2> /dev/null
+    gpgImport
     ARCH='x86_64'
     # only one file should be listed anyway
     PKG=$(ls -1 *${REPO}* | head -n1)
