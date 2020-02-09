@@ -10,7 +10,7 @@ depends=('ibus' 'qt5-base')
 build() {
     mkdir "$srcdir/src"
     cd "$srcdir/src"
-    git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git -b 1.5.1 .
+    git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git .
     git submodule update --init --recursive
     mkdir build && cd build
     cmake ..
