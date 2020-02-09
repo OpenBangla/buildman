@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
-export DIST=archlinux
-export RELPACK=$2
-export RELVER=$3
-export DEPLOY=$4
+DIST=archlinux
+RELEASE_STUB=$1
+RELEASE_VERSION=$2
 # pin package extension
-export PKGEXT=".pkg.tar.xz"
+PKGEXT=".pkg.tar.xz"
+RELEASE_FILENAME="${RELEASE_STUB}${DIST}${PKGEXT}"
 pacman -S --noconfirm --needed base-devel cmake libibus qt5-base rust curl
 mkdir /build
-echo -e "pkgver=\"$RELVER\"\n$(cat PKGBUILD.stub)" > /build/PKGBUILD
+sed -i "/pkgname=/a pkgver=\"${RELEASE_VERSION}\"" PKGBUILD.stub
+cp PKGBUILD.stub /build/PKGBUILD
 useradd -m builder
 chown -R builder:builder /build
 cd /build
 sudo -u builder makepkg -fd --skipinteg
-mv openbangla-keyboard-*${PKGEXT} ${RELPACK}${DIST}${PKGEXT}
+mv openbangla-keyboard-*${PKGEXT} ${RELEASE_FILENAME}
 if [ $DEPLOY == true ]; then
-    mkdir $GITHUB_WORKSPACE/artifact
-    mv *${PKGEXT} $GITHUB_WORKSPACE/artifact/
+    mv ${RELEASE_FILENAME} ${DEPLOY_PATH}/
 fi

@@ -1,15 +1,16 @@
-# THIS IS A PARTIAL PKGBUILD TEMPLATE FOR BUILD PROCESS *ONLY*
+# Maintainer: OpenBangla <openbanglateam@gmail.com>
+# THIS IS A *PARTIAL* PKGBUILD TEMPLATE FOR CUSTOM AUTOBUILD PROCESS ONLY
 pkgname="openbangla-keyboard"
 pkgrel=1
 pkgdesc="An OpenSource, Unicode compliant Bengali Input Method"
 arch=('x86_64')
-url="http://openbangla.github.io"
+url="https://openbangla.github.io"
 license=('GPL3')
 depends=('ibus' 'qt5-base')
 build() {
     mkdir "$srcdir/src"
     cd "$srcdir/src"
-    git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git .
+    git clone https://github.com/OpenBangla/OpenBangla-Keyboard.git -b 1.5.1 .
     git submodule update --init --recursive
     mkdir build && cd build
     cmake ..
@@ -19,3 +20,4 @@ package() {
     cd "$srcdir/src"
     make -C build DESTDIR="$pkgdir" install
 }
+
