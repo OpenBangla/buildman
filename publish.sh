@@ -10,6 +10,7 @@ gpgImport () {
     echo -e "-----BEGIN PGP PRIVATE KEY BLOCK-----\n\n${BINTRAY_GPG_DATA}\n-----END PGP PRIVATE KEY BLOCK-----" \
     | gpg --import 2> /dev/null
 }
+
 pubDeb () {
     for PKG in $(ls *${REPO}*); do
         # read distro code from filename
@@ -17,18 +18,23 @@ pubDeb () {
         jfrog bt upload --publish --override --deb "${CODENAME}/main/amd64" "$PKG" "$VERSION_PATH"
     done
 }
+
 pubRpm () {
     gpgImport
+    ARCH='x86_64'
     pacman -Syyuu --noconfirm --needed rpm
-    gpg --export -a "${BINTRAY_GPG_ID}" > /pubkey.asc
-    rpm --import /pubkey.asc
-    echo "%_signature gpg" >> "$HOME/.rpmmacros"
+    gpg --export -a "${BINTRAY_GPG_ID}" > pubkey.asc
+    rpm --import pubkey.asc
+    rm pubkey.asc
+    echo "%_signature gpg" > "$HOME/.rpmmacros"
     echo "%_gpg_name ${BINTRAY_GPG_ID}" >> "$HOME/.rpmmacros"
     for PKG in $(ls *${REPO}*); do
         rpm --addsign "$PKG"
-        jfrog bt upload --publish --override "$PKG" "$VERSION_PATH"
+        VERSION_ID=$(echo $PKG | grep -oP '[\d]+.rpm$' | cut -d. -f1)
+        jfrog bt upload --publish --override "$PKG" "$VERSION_PATH" "${VERSION_ID}/${ARCH}/"
     done
 }
+
 pubArch () {
     gpgImport
     ARCH='x86_64'
@@ -60,4 +66,3 @@ for REPO in ${REPOLIST[*]}; do
         pubArch
     fi
 done
-
